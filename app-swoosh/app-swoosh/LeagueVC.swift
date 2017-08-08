@@ -15,8 +15,7 @@ class LeagueVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        player = Player() //Initialize the struct
+        player = Player() //Initialize the struct on loading view
     }
     
     //Programatically loading Segues
@@ -40,6 +39,19 @@ class LeagueVC: UIViewController {
     func selectLeague(leagueType: String) {
         player.desiredLeague = leagueType
         nextBtn.isEnabled = true
+    }
+    
+    //Function passes data to the SkillVC. prepareForSegue is ALWAYS called before viewDidLoad on destination VC.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let skillVC = segue.destination as? SkillVC {
+            //'if let' sequence will try to run the statement
+            // as? is downcasting Destination View Controller to SkillVC - should work since SkillVC inherits from UIViewController
+            // skillVC stores the SkillVC class code
+            
+            skillVC.player = player
+            //Passing player from LeagueVC to player in SkillVC
+            
+        }
     }
     
 
